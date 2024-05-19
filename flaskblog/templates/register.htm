@@ -1,0 +1,81 @@
+{% extends 'layout.htm' %}
+
+{% block content %}
+    <!-- ======= Contact Section ======= -->
+    <section id="contact" class="contact">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-header">
+          <h2>Sign Up Today</h2>
+          <p>Already have an account? <a href="{{url_for('users.login')}}">Sign In</a></p>
+        </div>
+
+        <div class="row gx-lg-0 gy-4">
+
+          <div class="col-lg-12 w-75 mx-auto">
+            <form action="" method="post" role="form" class="php-email-form">
+              {{form.hidden_tag()}}
+              <div class="row">
+                <div class="col-md-6 form-group">
+                  {% if form.username.errors %}
+                    {{form.username(class="form-control py-3 is-invalid", placeholder="Your Username")}}
+                    <div class="invalid-feedback">
+                      {% for error in form.username.errors %}
+                        <span>{{ error }}</span>
+                      {% endfor %}
+                    </div>
+                  {% else %}
+                    {{form.username(class="form-control py-3", placeholder="Your Username")}}
+                  {% endif %}
+                </div>
+                <div class="col-md-6 form-group mt-3 mt-md-0">
+                  {% if form.email.errors %}
+                    {{form.email(class="form-control py-3 is-invalid", placeholder="Your Email")}}
+                      <div class="invalid-feedback">
+                        {% for error in form.email.errors %}
+                          <span>{{ error }}</span>
+                        {% endfor %}
+                      </div>
+                  {% else %}
+                      {{form.email(class="form-control py-3", placeholder="Your Email")}}
+                  {% endif %}
+                </div>
+              </div>
+              <div class="form-group mt-3">
+                {% if form.password.errors %}
+                {{form.password(class="form-control py-3 is-invalid", placeholder="Your Password")}}
+                <div class="invalid-feedback">
+                  {% for error in form.password.errors %}
+                  <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+                {% else %}
+                {{form.password(class="form-control py-3", placeholder="Your Password")}}
+                {% endif %}
+              </div>
+              <div class="form-group mt-3">
+                {% if form.confirm_password.errors %}
+                {{form.confirm_password(class="form-control py-3 is-invalid", placeholder="Confirm Password")}}
+                <div class="invalid-feedback">
+                  {% for error in form.confirm_password.errors %}
+                  <span>{{ error }}</span>
+                  {% endfor %}
+                </div>
+                {% else %}
+                {{form.confirm_password(class="form-control py-3", placeholder="Confirm Password")}}
+                {% endif %}
+              </div>
+              <div class="my-3">
+                <div class="loading">Loading</div>
+                <div class="error-message"></div>
+                <div class="sent-message">Your details has been sent. Thank you!</div>
+              </div>
+              <div class="text-center">{{form.submit(class="btn btn-success btn-lg py-3 px-5")}}</div>
+            </form>
+          </div><!-- End Contact Form -->
+
+        </div>
+
+      </div>
+    </section><!-- End Contact Section -->
+{% endblock content %}

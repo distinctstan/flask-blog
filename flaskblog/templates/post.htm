@@ -1,0 +1,62 @@
+{% extends 'layout.htm' %}
+
+{% block content %}
+<p>Go <a href="{{url_for('main.home')}}">Back</a></p>
+<div class="row gy-4 posts-list">
+    <div class="col-xl-12 col-md-12">
+        <article>
+            {% if post.author == current_user %}
+                <div class="blog-pagination">
+                    <ul class="">
+                        <li class="active"><a href="{{ url_for('posts.update_post', post_id=post.id) }}">Update</a></li>
+                        <li class="">
+                            <button type="button" class="btn btn-danger text-white" data-bs-toggle="modal" data-bs-target="#deleteModal">
+                                Delete
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            {% endif %}
+            <hr style="color: seagreen;">
+            <div class="d-flex align-items-center">
+                <img src="{{ url_for('static', filename='assets/img/profile_pics/' + post.author.profile_pic) }}" alt=""
+                    class="img-fluid img-thumbnail post-author-img flex-shrink-0" width="150"
+                    style="margin-right: 0.5rem; border-radius: 50%;">
+                <div class="post-meta">
+                    <p class="post-author-list"><a
+                            href="{{ url_for('users.user_posts', username=post.author.username) }}">{{post.author.username}}</a></p>
+                    <p class="post-date">
+                        <time datetime="2022-01-01">{{post.date_posted.strftime('%Y-%m-%d')}}</time>
+                    </p>
+                </div>
+            </div>
+            <hr style="color: seagreen;">
+            <h2 class="title">
+                {{post.title}}
+            </h2>
+            <p class="post-category">{{post.content}}</p>
+
+        </article>
+    </div><!-- End post list item -->
+</div><!-- End blog posts list -->
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" aria-labelledby="deleteModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h1 class="modal-title fs-5" id="deleteModalLabel">Delete Post</h1>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to delete the post?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No, Cancel</button>
+                <form action="{{ url_for('posts.delete_post', post_id=post.id) }}" method="post">
+                    <button type="submit" class="btn btn-danger">Yes, Delete</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content %}

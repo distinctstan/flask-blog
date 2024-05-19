@@ -1,0 +1,79 @@
+{% extends 'layout.htm' %}
+
+{% block content %}
+    <section id="contact" class="contact">
+        <div class="container" data-aos="fade-up">
+    
+            <div class="row gx-lg-0 gy-4">
+                <div class="col-lg-6">
+                    <div class="d-flex align-items-center">
+                        <img src="{{ profile_pic }}" alt="" class="img-fluid img-thumbnail post-author-img flex-shrink-0" width="150" style="margin-right: 1rem; border-radius: 50%;">
+                        <div class="post-meta">
+                            <p class="post-author-list">
+                            <h1><a href="{{ url_for('users.user_posts', username=current_user.username) }}">{{current_user.username}}</a></h1>
+                            </p>
+                            <p class="post-date">
+                                <time datetime="2022-01-01">{{ current_user.email }}</time>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 w-50">
+                    <form action="" method="post" role="form" enctype="multipart/form-data" class="php-email-form">
+                        <div class="section-header">
+                            <h4>Update Account Info</h4>
+                        </div>
+                        {{form.hidden_tag()}}
+                        <div class="form-group mt-3 mt-md-0">
+                            {{form.username.label()}}
+                            {% if form.username.errors %}
+                            {{form.username(class="form-control py-3 is-invalid", placeholder="Your Username")}}
+                            <div class="invalid-feedback">
+                                {% for error in form.username.errors %}
+                                <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                            {{form.username(class="form-control py-3", placeholder="Your Username")}}
+                            {% endif %}
+                        </div>
+                        <div class="form-group mt-3 mt-md-0">
+                            {{form.email.label()}}
+                            {% if form.email.errors %}
+                            {{form.email(class="form-control py-3 is-invalid", placeholder="Your Email")}}
+                            <div class="invalid-feedback">
+                                {% for error in form.email.errors %}
+                                <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                            {{form.email(class="form-control py-3", placeholder="Your Email")}}
+                            {% endif %}
+                        </div>
+                        <div class="form-group custom-file">
+                            {{ form.picture.label() }}
+                            {% if form.picture.errors %}
+                            {{ form.picture(class="form-control p-3 is-invalid custom-file-input") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.picture.errors %}
+                                <span class="text-danger">{{ error }}</span><br>
+                                {% endfor %}
+                            </div>
+                            {% else %}
+                            {{ form.picture(class="form-control p-3 custom-file-input") }}
+                            {% endif %}
+                        </div>
+                        <div class="my-3">
+                            <div class="loading">Loading</div>
+                            <div class="error-message"></div>
+                            <div class="sent-message">Updating your profile. Thank you!</div>
+                        </div>
+                        <div class="text-center">{{form.submit(class="btn btn-success btn-lg py-3 px-5")}}</div>
+                    </form>
+                </div><!-- End Contact Form -->
+    
+            </div>
+    
+        </div>
+    </section><!-- End Contact Section -->
+{% endblock content %}
